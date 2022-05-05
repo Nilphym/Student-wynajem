@@ -13,7 +13,8 @@ import Colors from '../constants/Colors';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import FindScreen from '../screens/FindScreen';
 import AccountScreen from '../screens/AccountScreen';
-import AddScreen from '../screens/TabTwoScreen';
+import AddScreen from '../screens/AddOfferScreen';
+import FavouriteScreen from '../screens/FavouriteScreen';
 import { RootStackParamList, RootTabParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import OfferScreen from '../screens/OfferScreen';
@@ -79,7 +80,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Observed"
-        component={AddScreen}
+        component={FavouriteScreen}
         options={{
           title: 'Obserwowane',
           tabBarIcon: ({ color }) => (
