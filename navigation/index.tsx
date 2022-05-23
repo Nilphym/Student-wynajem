@@ -102,7 +102,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Messages"
-        component={AddScreen}
+        component={FavouriteScreen}
         options={{
           title: 'Wiadomości',
           tabBarIcon: ({ color }) => (
