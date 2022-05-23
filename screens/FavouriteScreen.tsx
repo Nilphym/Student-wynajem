@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 
-export default function TabTwoScreen() {
+export default function FavouriteScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
+      <Text style={styles.title}>Ulubione oferty</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
