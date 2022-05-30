@@ -10,13 +10,19 @@ import {
   StyleSheet,
   useWindowDimensions,
   TextInput,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
+import { Button as StyledButton } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap } from 'react-native-tab-view';
+import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 import { Text, View } from '../components/Themed';
 import { UserContext } from '../providers/UserProvider';
+import { RootTabScreenProps } from '../types';
 
 type FormProps = {
   submitText: string;
@@ -177,7 +183,9 @@ const renderScene = SceneMap({
   register: Register
 });
 
-export default function AccountScreen() {
+export default function AccountScreen({
+  navigation
+}: RootTabScreenProps<'Account'>) {
   const userContext = useContext(UserContext);
   const layout = useWindowDimensions();
 
@@ -189,7 +197,49 @@ export default function AccountScreen() {
 
   return userContext.state.user ? (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Witaj!</Text>
+      <Text style={styles.title}>
+        Cześć, {userContext.state.user.firstName}!
+      </Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Add')}
+        style={styles.addOfferButton}
+      >
+        <FontAwesome5 style={styles.guitarIcon} name="guitar" />
+        <Text style={styles.addOfferText}>Dodaj ogłoszenie</Text>
+        <MaterialIcons style={styles.houseIcon} name="house" />
+      </TouchableOpacity>
+      <View style={styles.section}>
+        <Text style={styles.sectionHeader}>Ogłoszenia</Text>
+        <TouchableOpacity
+          style={styles.sectionButton}
+          onPress={() => navigation.push('MyOffers')}
+        >
+          <Text style={{ fontSize: 20, color: 'black' }}>Dodane</Text>
+          <AntDesign name="right" size={24} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.sectionButton}
+          onPress={() => navigation.navigate('Observed')}
+        >
+          <Text style={{ fontSize: 20, color: 'black' }}>Obserwowane</Text>
+          <AntDesign name="right" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionHeader}>Wiadomości</Text>
+        <TouchableOpacity
+          style={styles.sectionButton}
+          onPress={() => navigation.navigate('Messages')}
+        >
+          <Text style={{ fontSize: 20, color: 'black' }}>Aktualne</Text>
+          <AntDesign name="right" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+      <StyledButton
+        containerStyle={styles.logoutButton}
+        title="Wyloguj się"
+        onPress={() => null}
+      />
     </SafeAreaView>
   ) : (
     <SafeAreaView style={styles.container}>
@@ -232,5 +282,62 @@ const styles = StyleSheet.create({
   },
   label: {
     color: 'black'
+  },
+  addOfferButton: {
+    width: '90%',
+    height: 60,
+    marginBottom: 30,
+    alignSelf: 'center',
+    backgroundColor: '#FFF6CE',
+    overflow: 'hidden',
+    position: 'relative',
+    justifyContent: 'center',
+    borderRadius: 6
+  },
+  guitarIcon: {
+    position: 'absolute',
+    top: 2,
+    left: 5,
+    color: '#009dff',
+    fontSize: 40
+  },
+  houseIcon: {
+    position: 'absolute',
+    bottom: -12,
+    right: -15,
+    color: '#009dff',
+    fontSize: 60,
+    transform: [{ rotateZ: '-35deg' }]
+  },
+  addOfferText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 25,
+    textAlign: 'center'
+  },
+  section: {
+    backgroundColor: 'transparent',
+    padding: 10
+  },
+  sectionHeader: {
+    fontSize: 25,
+    color: 'black',
+    fontWeight: 'bold',
+    paddingBottom: 15
+  },
+  sectionButton: {
+    width: '100%',
+    borderBottomWidth: 1,
+    paddingVertical: 15,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  logoutButton: {
+    width: 200,
+    marginTop: 30,
+    marginRight: 10,
+    alignSelf: 'flex-end',
+    backgroundColor: '#fff'
   }
 });

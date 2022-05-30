@@ -30,7 +30,8 @@ export const offers = [
       { label: 'Umeblowane', content: 'Tak' },
       { label: 'Rodzaj pokoju', content: 'Jednoosobowy' },
       { label: 'Preferowani', content: 'Mężczyźni' }
-    ]
+    ],
+    observed: true
   },
   {
     offerId: 2,
@@ -52,7 +53,8 @@ export const offers = [
       { label: 'Umeblowane', content: 'Tak' },
       { label: 'Rodzaj pokoju', content: 'Jednoosobowy' },
       { label: 'Preferowani', content: 'Mężczyźni' }
-    ]
+    ],
+    observed: false
   },
   {
     offerId: 3,
@@ -74,7 +76,8 @@ export const offers = [
       { label: 'Umeblowane', content: 'Tak' },
       { label: 'Rodzaj pokoju', content: 'Jednoosobowy' },
       { label: 'Preferowani', content: 'Mężczyźni' }
-    ]
+    ],
+    observed: false
   },
   {
     offerId: 4,
@@ -96,7 +99,8 @@ export const offers = [
       { label: 'Umeblowane', content: 'Tak' },
       { label: 'Rodzaj pokoju', content: 'Jednoosobowy' },
       { label: 'Preferowani', content: 'Mężczyźni' }
-    ]
+    ],
+    observed: false
   },
   {
     offerId: 5,
@@ -118,7 +122,8 @@ export const offers = [
       { label: 'Umeblowane', content: 'Tak' },
       { label: 'Rodzaj pokoju', content: 'Jednoosobowy' },
       { label: 'Preferowani', content: 'Mężczyźni' }
-    ]
+    ],
+    observed: false
   },
   {
     offerId: 6,
@@ -140,7 +145,8 @@ export const offers = [
       { label: 'Umeblowane', content: 'Tak' },
       { label: 'Rodzaj pokoju', content: 'Jednoosobowy' },
       { label: 'Preferowani', content: 'Mężczyźni' }
-    ]
+    ],
+    observed: false
   },
   {
     offerId: 7,
@@ -162,7 +168,8 @@ export const offers = [
       { label: 'Umeblowane', content: 'Tak' },
       { label: 'Rodzaj pokoju', content: 'Jednoosobowy' },
       { label: 'Preferowani', content: 'Mężczyźni' }
-    ]
+    ],
+    observed: false
   },
   {
     offerId: 8,
@@ -184,6 +191,7 @@ export const offers = [
       { label: 'Umeblowane', content: 'Tak' },
       { label: 'Rodzaj pokoju', content: 'Jednoosobowy' },
       { label: 'Preferowani', content: 'Mężczyźni' }
-    ]
+    ],
+    observed: false
   }
 ];

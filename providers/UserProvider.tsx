@@ -82,11 +82,11 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     async login({ email, password }: { email: string; password: string }) {
       dispatch({ type: 'login/request' });
       try {
-        const jwt = await authService.login({
+        const jwt: unknown = await authService.login({
           email,
           password
         });
-        const user: User = jwtDecode(jwt);
+        const user: User = jwtDecode(jwt as string);
         dispatch({ type: 'login/success', user });
       } catch (error) {
         dispatch({ type: 'login/failure', error });

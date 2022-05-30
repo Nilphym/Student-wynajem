@@ -17,6 +17,7 @@ import AddScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import OfferScreen from '../screens/OfferScreen';
+import ObservedScreen from '../screens/ObservedScreen';
 
 export default function Navigation() {
   return (
@@ -79,7 +80,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Observed"
-        component={AddScreen}
+        component={ObservedScreen}
         options={{
           title: 'Obserwowane',
           tabBarIcon: ({ color }) => (

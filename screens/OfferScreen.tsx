@@ -32,6 +32,8 @@ export default function OfferScreen({
     });
   };
 
+  const toggleObserved = () => {};
+
   return (
     <SafeAreaView style={styles.container}>
       <FontAwesome
@@ -41,15 +43,34 @@ export default function OfferScreen({
       />
       <Carousel photos={offer.photos} />
       <ScrollView>
-        <View style={{ ...styles.section, paddingTop: 20 }}>
-          <Text style={styles.date}>
-            Dodane {offer.publishDate.split('-').reverse().join('.')}
-          </Text>
-          <Text style={styles.date}>
-            Wygaśnie {offer.expirationDate.split('-').reverse().join('.')}
-          </Text>
-          <Text style={styles.name}>{offer.name}</Text>
-          <Text style={styles.price}>{offer.price} zł</Text>
+        <View
+          style={{
+            ...styles.section,
+            paddingTop: 20,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between'
+          }}
+        >
+          <View>
+            <Text style={styles.date}>
+              Dodane {offer.publishDate.split('-').reverse().join('.')}
+            </Text>
+            <Text style={styles.date}>
+              Wygaśnie {offer.expirationDate.split('-').reverse().join('.')}
+            </Text>
+            <Text style={styles.name}>{offer.name}</Text>
+            <Text style={styles.price}>{offer.price} zł</Text>
+          </View>
+          <View>
+            <TouchableOpacity onPress={toggleObserved}>
+              {offer.observed ? (
+                <FontAwesome size={30} name="heart" color="#3a78c2" />
+              ) : (
+                <FontAwesome size={30} name="heart-o" color="#3a78c2" />
+              )}
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.section}>
           {offer.tags.map((tag, index) => (
