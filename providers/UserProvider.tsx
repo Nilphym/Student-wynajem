@@ -33,14 +33,7 @@ type Action =
 
 const initialState: State = {
   isLoading: false,
-  user: {
-    firstName: 'Andy',
-    secondName: 'Larkins',
-    email: 'andy@gmail.com',
-    phone: '123123123',
-    address: '12 Street Road',
-    jwt: 'asdasd'
-  }
+  user: undefined
 };
 
 const reducer = (state: State, action: Action): State => {

@@ -1,24 +1,31 @@
 import { Text, View } from '../components/Themed';
-import {
-  Controller,
-  FieldValues,
-  SubmitHandler,
-  useForm
-} from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 import {
   Button,
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
 import React, { useState, useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { UserContext } from '../providers/UserProvider';
+import { RootTabScreenProps } from '../types';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import MapView, { Marker } from 'react-native-maps';
 
-export default function AddOfferScreen() {
-  const [image, setImage] = useState(''); // adding more images and then showing them in loop
+export default function AddOfferScreen({
+  navigation
+}: RootTabScreenProps<'Add'>) {
+  const [image, setImage] = useState('');
+  const [region, setRegion] = useState({
+    latitude: 51.1079,
+    longitude: 17.0385,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01
+  });
 
   const userContext = useContext(UserContext);
 
@@ -45,141 +52,131 @@ export default function AddOfferScreen() {
     onSubmit(data);
     setImage('');
     reset({
-      nazwa_oferty: '',
-      opis_oferty: '',
-      lokalizacja: ''
+      name: '',
+      description: '',
+      localization: ''
     });
   };
 
-  return (
+  return true ? (
+    // return userContext.state.user ? (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Dodawanie ofert</Text>
-      <View style={styles.tabcontainer}>
-        <Text style={styles.label}>Nazwa oferty</Text>
-        <Controller
-          name="nazwa_oferty"
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="nazwa oferty"
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              style={styles.field}
+      <ScrollView>
+        <Text style={styles.title}>Dodawanie ofert</Text>
+        <View style={styles.tabContainer}>
+          <Text style={styles.label}>Nazwa oferty</Text>
+          <Controller
+            name="name"
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={styles.field}
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+                value={value}
+              />
+            )}
+          />
+
+          <Text style={styles.label}>Krótki opis</Text>
+          <Controller
+            name="description"
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+                value={value}
+                style={{
+                  ...styles.field,
+                  ...{
+                    height: 100
+                  }
+                }}
+              />
+            )}
+          />
+
+          <Text style={styles.label}>Lokalizacja</Text>
+          <MapView
+            style={styles.map}
+            initialRegion={region}
+            onRegionChangeComplete={(region) => setRegion(region)}
+          >
+            <Marker coordinate={region} />
+          </MapView>
+
+          <Text style={styles.label}>Wybierz zdjęcia</Text>
+          <TouchableOpacity style={styles.field} onPress={pickImage}>
+            <Text>Zdjęcie</Text>
+            <MaterialCommunityIcons
+              name="cursor-default-click"
+              size={20}
+              color="black"
+              style={{ position: 'absolute', left: 15, top: '31%' }}
             />
-          )}
-        />
+          </TouchableOpacity>
+          {!!image && <Image source={{ uri: image }} style={{ height: 100 }} />}
 
-        <Text style={styles.label}>Krótki opis</Text>
-        <Controller
-          name="opis_oferty"
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="krótki opis"
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              style={{
-                height: 100,
-                width: 350,
-                paddingHorizontal: 15,
-                borderRadius: 5,
-                marginVertical: 10,
-                fontSize: 17,
-                backgroundColor: 'white'
-              }}
+          <View style={{ marginTop: 15 }}>
+            <Button
+              title="Dodaj ofertę"
+              onPress={handleSubmit(submitHandler)}
             />
-          )}
-        />
-
-        <Text style={styles.label}>lokalizacja</Text>
-        <Controller
-          name="lokalizacja"
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              placeholder="lokalizacja"
-              onBlur={onBlur}
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              style={styles.field}
-            />
-          )}
-        />
-
-        <Text style={styles.label}>Wybierz zdjęcia</Text>
-        <View style={styles.hairline} />
-
-        <TouchableOpacity style={styles.photo_button} onPress={pickImage}>
-          <Text>Zdjęcie</Text>
-        </TouchableOpacity>
-
-        {!!image && (
-          <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
-        )}
-
-        <View style={{ marginTop: 15, width: 350 }}>
-          <Button title="Dodaj ofertę" onPress={handleSubmit(submitHandler)} />
+          </View>
         </View>
-      </View>
+      </ScrollView>
+    </SafeAreaView>
+  ) : (
+    <SafeAreaView
+      style={{
+        height: '100%',
+        justifyContent: 'center',
+        marginHorizontal: 15
+      }}
+    >
+      <Text style={styles.title}>Zaloguj się, by dodawać własne oferty!</Text>
+      <Button
+        title="Zaloguj się"
+        onPress={() => navigation.navigate('Account')}
+      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent'
-  },
-  tabcontainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent'
-  },
-  photo_button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    borderRadius: 12,
-    padding: 20,
-    textAlign: 'center'
-  },
-  hairline: {
-    backgroundColor: '#A2A2A2',
-    height: 3,
-    marginTop: 12,
-    marginBottom: 12,
-    width: 340
+    flex: 1
   },
   title: {
-    paddingHorizontal: 80,
-    paddingVertical: 10,
-    marginTop: 40,
-    backgroundColor: '#24AFAF',
-    color: '#ffffff',
-    fontFamily: 'sans-serif-light',
     fontSize: 30,
-    fontWeight: 'bold'
-  },
-  label: {
-    fontSize: 20,
+    paddingVertical: 10,
+    fontWeight: 'bold',
+    textAlign: 'center',
     color: 'black'
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%'
+  label: {
+    color: 'black'
+  },
+  tabContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    marginHorizontal: 15,
+    marginVertical: 20,
+    backgroundColor: 'transparent'
   },
   field: {
+    position: 'relative',
     height: 50,
-    width: 350,
     paddingHorizontal: 15,
     borderRadius: 5,
     marginVertical: 10,
     fontSize: 17,
     backgroundColor: 'white'
+  },
+  map: {
+    width: '100%',
+    height: 150,
+    marginVertical: 10
   }
 });

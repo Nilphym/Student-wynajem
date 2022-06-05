@@ -195,6 +195,8 @@ export default function AccountScreen({
     { key: 'register', title: 'Załóż konto' }
   ]);
 
+  console.log(userContext.state.user);
+
   return userContext.state.user ? (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>
@@ -210,10 +212,7 @@ export default function AccountScreen({
       </TouchableOpacity>
       <View style={styles.section}>
         <Text style={styles.sectionHeader}>Ogłoszenia</Text>
-        <TouchableOpacity
-          style={styles.sectionButton}
-          onPress={() => navigation.push('MyOffers')}
-        >
+        <TouchableOpacity style={styles.sectionButton} onPress={() => null}>
           <Text style={{ fontSize: 20, color: 'black' }}>Dodane</Text>
           <AntDesign name="right" size={24} color="black" />
         </TouchableOpacity>
