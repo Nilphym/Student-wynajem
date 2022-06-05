@@ -31,7 +31,17 @@ type Action =
   | { type: 'register/success' }
   | { type: 'register/failure'; error: unknown };
 
-const initialState: State = { isLoading: false };
+const initialState: State = {
+  isLoading: false,
+  user: {
+    firstName: 'Andy',
+    secondName: 'Larkins',
+    email: 'andy@gmail.com',
+    phone: '123123123',
+    address: '12 Street Road',
+    jwt: 'asdasd'
+  }
+};
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {

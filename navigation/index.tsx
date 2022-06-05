@@ -13,7 +13,7 @@ import Colors from '../constants/Colors';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import FindScreen from '../screens/FindScreen';
 import AccountScreen from '../screens/AccountScreen';
-import AddScreen from '../screens/TabTwoScreen';
+import AddOfferScreen from '../screens/AddOfferScreen';
 import { RootStackParamList, RootTabParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import OfferScreen from '../screens/OfferScreen';
@@ -91,22 +91,11 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Add"
-        component={AddScreen}
+        component={AddOfferScreen}
         options={{
           title: 'Dodaj',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="plus-square-o" color={color} />
-          ),
-          headerShown: false
-        }}
-      />
-      <BottomTab.Screen
-        name="Messages"
-        component={AddScreen}
-        options={{
-          title: 'Wiadomości',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="commenting-o" color={color} />
           ),
           headerShown: false
         }}

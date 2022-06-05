@@ -30,11 +30,6 @@ const linking: LinkingOptions<RootStackParamList> = {
               AccountScreen: 'account'
             }
           },
-          Messages: {
-            screens: {
-              MessagesScreen: 'messages'
-            }
-          },
           Observed: {
             screens: {
               ObservedScreen: 'observed'
