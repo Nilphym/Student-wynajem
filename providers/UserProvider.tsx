@@ -32,8 +32,9 @@ type Action =
   | { type: 'register/failure'; error: unknown };
 
 const initialState: State = {
-  isLoading: false,
-  user: undefined
+  isLoading: true,
+  user: undefined,
+  error: undefined
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -80,16 +81,17 @@ export const UserContext = React.createContext({
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(state);
 
   const actions = {
     async login({ email, password }: { email: string; password: string }) {
       dispatch({ type: 'login/request' });
       try {
-        const jwt: unknown = await authService.login({
+        const { token }: { token: unknown } = await authService.login({
           email,
           password
         });
-        const user: User = jwtDecode(jwt as string);
+        const user: User = jwtDecode(token as string);
         dispatch({ type: 'login/success', user });
       } catch (error) {
         dispatch({ type: 'login/failure', error });

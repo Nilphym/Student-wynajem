@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   Controller,
   FieldValues,
@@ -136,7 +136,6 @@ const Login = () => {
 
   const onSubmit = async ({ email, password }: any) => {
     userContext.actions.login({ email, password });
-    console.log({ email, password });
   };
 
   return <Form submitText="Zaloguj się" onSubmit={onSubmit} />;
@@ -154,14 +153,6 @@ const Register = () => {
     address
   }: any) => {
     userContext.actions.register({
-      email,
-      password,
-      firstName,
-      secondName,
-      phone,
-      address
-    });
-    console.log({
       email,
       password,
       firstName,
@@ -195,7 +186,15 @@ export default function AccountScreen({
     { key: 'register', title: 'Załóż konto' }
   ]);
 
-  console.log(userContext.state.user);
+  useEffect(() => {
+    userContext.state.isLoading = true;
+  }, []);
+
+  useEffect(() => {
+    if (!userContext.state.isLoading) {
+      navigation.replace('Root');
+    }
+  }, [userContext.state.isLoading]);
 
   return userContext.state.user ? (
     <SafeAreaView style={styles.container}>
@@ -237,7 +236,7 @@ export default function AccountScreen({
       <StyledButton
         containerStyle={styles.logoutButton}
         title="Wyloguj się"
-        onPress={() => null}
+        onPress={userContext.actions.logout}
       />
     </SafeAreaView>
   ) : (

@@ -58,8 +58,7 @@ export default function AddOfferScreen({
     });
   };
 
-  return true ? (
-    // return userContext.state.user ? (
+  return userContext.state.user ? (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <Text style={styles.title}>Dodawanie ofert</Text>
@@ -108,7 +107,6 @@ export default function AddOfferScreen({
 
           <Text style={styles.label}>Wybierz zdjęcia</Text>
           <TouchableOpacity style={styles.field} onPress={pickImage}>
-            <Text>Zdjęcie</Text>
             <MaterialCommunityIcons
               name="cursor-default-click"
               size={20}
